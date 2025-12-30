@@ -1,9 +1,20 @@
 {
-   "manifest_version": 3,
-    "name": "Nook",
-    "version": "1.0",
-    "description": "A simple extension to mark websites for research",
-    "actions": {
-        "default_popup": "index.html"
+  "manifest_version": 3,
+  "name": "Nook",
+  "version": "1.0",
+  "permissions": ["sidePanel", "storage", "tabs", "activeTab"],
+  "side_panel": {
+    "default_path": "sidepanel.html",
+    "openPanelOnActionClick": true
+  },
+  "action": {
+    "default_title": "Nook",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
     }
+  ]
 }
