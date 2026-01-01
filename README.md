@@ -1,16 +1,64 @@
-# React + Vite
+Nook:
+-A chrome extension that is designed to make online research faster and easier.
+Highlight text on any website, add a note and nook will automatically organize everything into NookBooks (folders for each website), ready for you to view them in a side panel.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I built Nook to solve my own problem. I do LOTS of research while learning, and constantly lose track of where I found information. I wanted a way to highlight and take notes directly on web pages without switching apps.
 
-Currently, two official plugins are available:
+Screenshot:
+![nook](https://github.com/user-attachments/assets/956626f8-5fa7-48b6-aa82-260ac49a8e94)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+**Features**
+Highlight & Annotate
+  - Highlight text on any webpage
+  - Attach a custom note to each highlight
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Automatic Organization
+    - Notes are grouped into NookBooks based on their source website
+    - Each NookBook contains all highlights + notes from that site
 
-## Expanding the ESLint configuration
+- Side Panel Interface
+  - Persistent side panel for browsing NookBooks and notes
+  - Click a NookBook title to go to the website of the NookBook
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Recent NookBooks (Popup)
+  - Popup shows the three most recently updated NookBooks
+  - Quick access to continue research
+
+- Deletion Controls
+  - Delete individual notes
+  - Delete entire NookBooks
+ 
+**Tech Stack**
+- React – UI and state management
+- Chrome Extension APIs
+  - chrome.storage
+  - chrome.tabs
+  - chrome.sidePanel
+- JavaScript / CSS
+- Lucide Icons
+
+
+**Future Improvements**
+I'm intentionally tracking these as future work rather than unfinished features:
+- Animations & micro-interactions
+- Search within NookBooks
+- Editable notes & highlights
+- Sync support
+- Improved accessibility
+
+ **What I Learned**
+- Chrome Extension architecture (manifest v3, content scripts, background workers)
+- Working with chrome.storage API
+- Managing state across different extension contexts (popup, side panel, content scripts)
+- Text selection and range manipulation in the DOM
+
+**Installation Guide**
+1. Download or clone this repo
+2. run:
+   - `npm install`
+   - `npm run build`
+5. Open Chrome and go to `chrome://extensions/`
+6. Enable "Developer mode" (toggle in top right)
+7. Click "Load unpacked" and select the `dist/` folder in the extension
+8. Nook should appear in your extensions
