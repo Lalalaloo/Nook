@@ -1,9 +1,203 @@
-.note-color-indicator {
-  width: 14px;
-  height: 6px;
-  border-radius: 999px;
+:root {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: black;
+
+  color-scheme: light dark;
+  color: rgb(0, 0, 0);
+  background-color: #fafafa;
+
 }
 
-.nookbook-title {
+.nookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.nookbook-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  position:relative;
+  width: 6rem;
+  height: 4rem;
+  border: 1px solid black;
+  border-radius: 0.75rem;
   cursor: pointer;
+  padding: 0 0.5rem 0 0.5rem;
+  box-shadow: 2px 2px 4.5px rgba(0,0,0,0.25);
+}
+
+.nookbook-card h3 {
+
+  font-size: 0.7rem;
+  font-weight: 500;
+  font-family: "Lexend", sans-serif; 
+}
+
+.delete-nookbook-btn {
+  position: absolute;
+  bottom: 0.4rem;
+  right: 0.4rem;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+}
+
+.delete-nookbook-btn:hover {
+  color: rgb(235, 115, 135);
+}
+
+.nookbook-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+  
+}
+
+.nookbook-title{
+  padding: 1rem 0 0 0;
+  font-family: "Lexend", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  
+  
+}
+
+.nookbook-title:hover{
+  color: rgb(235, 115, 135);
+  cursor: pointer;
+}
+
+.sidepanel-in-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.house{
+  background-color: transparent;
+  color: black;
+  border: transparent;
+
+}
+
+.house:hover{
+  cursor: pointer;
+  color: rgb(235, 115, 135);
+}
+
+.link-msg{
+  margin:0;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
+  
+}
+
+.hr-title-sidebar{
+  width:90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2px;
+  border: transparent;
+  background-color: black;
+}
+
+.note-title-break{
+  width:90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1px;
+  border: transparent;
+  background-color: black;
+}
+
+
+.notes-list{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.note-card {
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0.3rem;
+  box-shadow: 2px 2px 4.5px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.note-title {
+  flex: 1; 
+  padding-right: 0.5rem;
+}
+
+.delete-note-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #444;
+}
+
+.delete-note-btn:hover {
+  color: rgb(235, 115, 135);
+}
+
+.note-header p {
+  margin:0;
+  padding:0;
+  font-weight: 500;
+  font-family: "Lexend", sans-serif;
+  text-align: center;
+  flex: 1;
+}
+
+.header-body-br {
+  width:90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2px;
+  border: transparent;
+  background-color: black;
+}
+
+.note-body p{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Lexend", sans-serif;
+}
+
+.note-color-indicator {
+  margin-left: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid black;
+  flex-shrink: 0;
 }

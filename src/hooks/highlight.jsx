@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHighlighter } from './useHighlighter'
 import { Highlighter } from 'lucide-react';
-
+import './highlight.css'
 const colors = [
         '#FFC9C9', 
         '#FF6E6E', 
@@ -18,7 +18,7 @@ export function Highlight() {
     const { active, color, toggleHighlight, selectColor } = useHighlighter();
   return (
 
-    <div>
+    <div className = {`highlight-color-container ${active ? 'active' : ''}`}>
     <button 
         onClick={toggleHighlight}
         className = "highlight-toggle-button"
@@ -26,7 +26,7 @@ export function Highlight() {
             backgroundColor: active ? color : 'transparent',
         }}
         >
-        <Highlighter size={16} style={{marginRight: '8px'}}/>
+        <Highlighter size={16}/>
         </button>
 
         {active && (
@@ -36,6 +36,9 @@ export function Highlight() {
                key = {c}
                onClick = {() => selectColor(c)}
                 className = "color-option-button"
+                style = {{
+                    backgroundColor: c
+                }}
                 />
             ))}
           </div>

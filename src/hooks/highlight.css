@@ -1,0 +1,46 @@
+.highlight-color-container {
+  display: inline-flex;
+  align-items: center;
+
+
+}
+
+.highlight-color-container.active {
+  gap: 1rem;
+  padding: 0 0 0 0;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 2rem;
+  justify-content: center;
+  box-shadow: 3px 2px 4px rgba(0,0,0,0.25);
+}
+
+.highlight-toggle-button{
+  
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: transparent;
+    color: black;
+}
+
+
+
+.color-options{
+    gap: 1rem;
+    border-radius: 2rem;
+    padding: 0 1rem 0 1rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.color-option-button{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 2rem;
+    border: 2px solid black;
+
+}
+

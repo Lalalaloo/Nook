@@ -1,5 +1,88 @@
+:root {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: black;
+
+  color-scheme: light dark;
+  color: rgb(0, 0, 0);
+  background-color: #fafafa;
+
+}
+
+.hr-title-popup{
+    height: 1px;
+    border: transparent;
+    border-radius: 2rem;
+    background-color: black;
+}
 body{
-    margin: 0;
-    font-family: Arial, sans-serif; 
+    padding: 0.5rem 1rem 1rem 1rem;
     
+    align-items: center;
+    justify-content: center;
+    width: 340px;
+    height: auto;
+    max-height: 407px;
+
+
+}
+
+
+.popup-title {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 450;
+    margin: 0;
+    
+}
+
+
+
+
+h5{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+h6{
+    margin: 0 0 0 0;
+    font-weight: 500;
+}
+
+.recent-nooks{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+
+}
+
+.recent-nook-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  width: 6rem;
+  height: 4rem;
+
+  border: 2px solid black;
+  border-radius: 0.75rem;
+  cursor: pointer;
+
+  padding: 0.5rem;
+  box-shadow: 2px 2px 4.5px rgba(0,0,0,0.25);
+}
+
+.recent-nook-title {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-align: center;
+
+  line-height: 1.1;
+  max-height: 100%;
+
+  overflow: hidden;
 }

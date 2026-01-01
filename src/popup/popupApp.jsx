@@ -1,5 +1,5 @@
 import React from 'react'
-import { Highlighter } from 'lucide-react';
+import { Trash} from 'lucide-react';
 import {Highlight} from '../hooks/highlight';
 import { useState, useEffect } from 'react';
 import './popup.css';
@@ -9,7 +9,7 @@ export default function PopupApp(){
 
   const [recentNooks, setRecentNooks] = useState([]);
 
-  useEffect(() => {
+ useEffect(() => {
     chrome.storage.local.get(['nookbooks'], (result) => {
       const nookbooks = result.nookbooks || {};
 
@@ -22,7 +22,7 @@ export default function PopupApp(){
     })
   }, [])
 
-  const openNookbook = async (nookbookKey) => {
+ const openNookbook = async (nookbookKey) => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
  
@@ -51,16 +51,17 @@ export default function PopupApp(){
 
     <div>
 
-        <h3>Welcome to Nook</h3>
-        <hr/>
+        <h3 className="popup-title">Welcome to Nook </h3>
+        <hr className = 'hr-title-popup'/>
+    
 
-        <div className = 'highlight-button'>
+        
             <Highlight/>
-        </div>
+        
 
-        <h4>Recent NookBooks:</h4>
-
-        {recentNooks.length > 0 ? (
+        <h5>Recent NookBooks:</h5>
+      <div className = 'recent-open-buttons'>
+       {recentNooks.length > 0 ? (
           <div className="recent-nooks">
             {recentNooks.map(([key, nook]) => (
               <button
@@ -68,17 +69,21 @@ export default function PopupApp(){
                 onClick={() => openNookbook(key)}
                 className="recent-nook-btn"
               >
-                <div>{nook.name}</div>
-                <small>{nook.notes.length} notes</small>
+                <p className = 'recent-nook-title'>{nook.name}</p>
+                
               </button>
             ))}
           </div>
         ) : (
-          <div>No recent NookBooks. Begin Highlighting!</div>
+         
+          <h6>No recent NookBooks. Begin Highlighting!</h6>
+
+          
         )}
 
-        
+      
         <button onClick={openSidePanel}>See more</button>
+        </div>
     </div>
   )
 }

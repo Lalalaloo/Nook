@@ -1,16 +1,45 @@
 import React, { use } from 'react'
 import { useState, useEffect } from 'react';
-import { ChevronUp, House } from 'lucide-react';
+import {  House, Trash } from 'lucide-react';
 import {Highlight} from '../hooks/highlight';
 import './sidepanel.css';
 
 
 export default function SidePanelApp() {
   const [nookbooks, setNookBooks] = useState({});
-  const [selectedNookbook, setSelectedNookbook] = useState(null); // Track which one is open
+  const [selectedNookbook, setSelectedNookbook] = useState(null); 
 
- 
-  useEffect(() => {
+  const deleteNote = (nookbookKey, noteId) => {
+    chrome.storage.local.get(['nookbooks'], (result) => {
+      const nookbooks = result.nookbooks || {};
+
+      if (!nookbooks[nookbookKey]) return;
+
+      nookbooks[nookbookKey].notes = nookbooks[nookbookKey].notes.filter(
+        (note) => note.id !== noteId
+      );
+
+      nookbooks[nookbookKey].lastUpdated = Date.now();
+
+      chrome.storage.local.set({ nookbooks });
+    });
+};
+
+const deleteNookbook = (nookbookKey) => {
+  if (!confirm("Delete this NookBook and all its notes?")) return;
+
+  chrome.storage.local.get(['nookbooks'], (result) => {
+    const nookbooks = result.nookbooks || {};
+
+    delete nookbooks[nookbookKey];
+
+    chrome.storage.local.set({ nookbooks });
+  });
+};
+
+
+
+ useEffect(() => {
     chrome.storage.local.get(['nookbooks'], (result) => {
       setNookBooks(result.nookbooks || {});
     })
@@ -51,39 +80,51 @@ export default function SidePanelApp() {
     const nookbook = nookbooks[selectedNookbook];
     return (
       <div>
-        <div className="sidepanel-header">
-          <button onClick={goBack}>
+        <div className="sidepanel-in-header">
+          <button 
+          className = 'house'
+          onClick={goBack}>
             <House size={24} />
           </button>
-          <button>
-            <ChevronUp size={24} />
-          </button>
+          
         </div>
 
-        <div>
-          <h1
+        <div className = 'inside-nookbook'>
+          <p
           className = "nookbook-title"
           onClick={() => goWebsite()}
-          >{nookbook.name}</h1>
-          <p>Click link to visit</p>
-          <hr />
+          >{nookbook.name}</p>
+          <p className =  'link-msg'>Click title to visit site</p>
+          
+          <hr className = "note-title-break"/>
         </div>
 
      
         <div className="notes-list">
+
           {nookbook.notes.map((note) => (
+
             <div key={note.id} className="note-card">
               <div className="note-header">
+                <strong className="note-title">{note.note}</strong>
 
                 <span
-                  className = "note-color-indicator"
+                  className="note-color-indicator"
                   style={{ backgroundColor: note.color }}
-
                 />
-                <strong>{note.text}</strong>
+
               </div>
+              <hr className = 'header-body-br'/>
               <div className="note-body">
-                <p>{note.note}</p>
+                <p>{note.text}</p>
+
+
+                <button
+                  className="delete-note-btn"
+                  onClick={() => deleteNote(selectedNookbook, note.id)}
+                >
+                  <Trash size = {16}/>
+                </button>
               </div>
             </div>
           ))}
@@ -95,16 +136,13 @@ export default function SidePanelApp() {
   
   return (
     <div>
-      <div className="sidepanel-header">
+      <div className="sidepanel-out-header">
         <Highlight />
-        <button>
-          <ChevronUp size={24} />
-        </button>
       </div>
 
-      <div>
-        <h1>NookBooks</h1>
-        <hr />
+      <div className = 'sidepanel-title'>
+        <h2>NookBooks</h2>
+        <hr className= 'hr-title-sidebar'/>
       </div>
 
       <div className="nookbook-grid">
@@ -118,7 +156,16 @@ export default function SidePanelApp() {
               onClick={() => setSelectedNookbook(key)} 
             >
               <h3>{nookbook.name}</h3>
-              <p>{nookbook.notes.length} notes</p>
+              <button
+            className="delete-nookbook-btn"
+            onClick={(e) => {
+              e.stopPropagation(); 
+              deleteNookbook(key);
+            }}
+          >
+            <Trash/>
+          </button>
+              
             </div>
           ))
         )}

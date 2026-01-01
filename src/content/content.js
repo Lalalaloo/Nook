@@ -23,6 +23,7 @@ chrome.runtime.onMessage.addListener((message) => {
 })
 
 
+
 document.addEventListener('mouseup', () => {
 
     if (!isActive) return;
