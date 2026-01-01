@@ -102,6 +102,9 @@ function saveNote(selectedText, noteText) {
     const pageUrl = window.location.href;
     const pageTitle = document.title;
 
+
+
+
     const newNote = {
         id: Date.now().toString(),
         text: selectedText,
@@ -123,7 +126,8 @@ chrome.storage.local.get(['nookbooks'], (result) => {
         nookbooks[websiteKey] = {
             url: websiteKey,
             name: pageTitle,
-            notes: []
+            notes: [],
+            lastUpdated: Date.now(),
         }
     }
 

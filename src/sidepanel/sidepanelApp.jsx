@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { use } from 'react'
 import { useState, useEffect } from 'react';
-import { ChevronUp, Highlighter, House } from 'lucide-react';
+import { ChevronUp, House } from 'lucide-react';
 import {Highlight} from '../hooks/highlight';
 import './sidepanel.css';
 
@@ -21,15 +21,31 @@ export default function SidePanelApp() {
       }
     };
 
+    
+
     chrome.storage.onChanged.addListener(listener);
     return () => chrome.storage.onChanged.removeListener(listener);
   }, []);
+
+  useEffect(() => {
+  chrome.storage.local.get(['openNookbookKey'], (result) => {
+    if (result.openNookbookKey) {
+      setSelectedNookbook(result.openNookbookKey);
+
+      chrome.storage.local.remove('openNookbookKey');
+    }
+  });
+}, []);
+
 
 
   const goBack = () => {
     setSelectedNookbook(null);
   };
 
+  const goWebsite = () => {
+    chrome.tabs.create({ url: nookbooks[selectedNookbook]?.notes[0]?.url });
+  }
 
   if (selectedNookbook) {
     const nookbook = nookbooks[selectedNookbook];
@@ -45,7 +61,10 @@ export default function SidePanelApp() {
         </div>
 
         <div>
-          <h1>{nookbook.name}</h1>
+          <h1
+          className = "nookbook-title"
+          onClick={() => goWebsite()}
+          >{nookbook.name}</h1>
           <p>Click link to visit</p>
           <hr />
         </div>
