@@ -1,12 +1,12 @@
 import React from 'react'
 import { Highlighter } from 'lucide-react';
+import {Highlight} from '../hooks/highlight';
+
+
+
 export default function PopupApp(){
 
-  const activateHighlight = () => {
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {action: "activateHighlight"});
-    });
-  }
+  
   const openSidePanel = async() => {
     try{
       const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
@@ -23,13 +23,16 @@ export default function PopupApp(){
 
     <div>
 
-        <h1>Welcome to the Popup!</h1>
-        <h3>it works</h3>
+        <h3>Welcome to Nook</h3>
+        <hr/>
 
-        <button onClick={activateHighlight}>
-        <Highlighter size={16} style={{marginRight: '8px'}}/>
-        </button>
+        <div className = 'highlight-button'>
+            <Highlight/>
+        </div>
+        
+        
 
+        <div className = 'recent-Nooks'></div>
         <button onClick={openSidePanel}>See more</button>
     </div>
   )

@@ -2,14 +2,24 @@ console.log('nook content script loaded');
 
 
 let isActive = false;
+let highlightColor = '#FFFF00'; //default highlight color
+
+//the highlighting is causing problems, so i need it to be inactive while notetaking
+let isNoteOpen = false;
+
 
 //need a way to get that active message from popup
 
 chrome.runtime.onMessage.addListener((message) => {
-    if(message.action === "activateHighlight"){
-        isActive = !isActive;
+    if(message.action === "HIGHLIGHT_TOGGLE"){
+        isActive =  message.active;
+        highlightColor = message.color;
         console.log("Highlighting active:", isActive);
     } //i think this is right..
+
+    if(message.action === "HIGHLIGHT_COLOR"){
+        highlightColor = message.color;
+    }
 })
 
 
@@ -17,19 +27,34 @@ document.addEventListener('mouseup', () => {
 
     if (!isActive) return;
 
-    const selectedText = window.getSelection().toString().trim();
+
+
+    const selection =  window.getSelection();
+
+    const selectedText = selection.toString().trim();
     console.log('Mouse up event detected.');
 
 
+    const range = selection.getRangeAt(0);
+    const span = document.createElement('span');
+    span.style.backgroundColor = highlightColor;
+    
+    range.surroundContents(span);
+    selection.removeAllRanges();
+
+
     if(selectedText.length > 0){
-        console.log('Selected text:', selectedText);
         showNoteCard(selectedText);
     } else {
-        console.log('No text selected.');
+        console.log("No text selected.");
     }
 });
 
 function showNoteCard(selectedText) {
+    if(isNoteOpen) return; 
+    isNoteOpen = true;
+
+
     const card = document.createElement('div');
     card.id = 'nook-note-card';
     card.style.cssText = `
@@ -45,8 +70,6 @@ function showNoteCard(selectedText) {
     `;
 
     card.innerHTML = `
-        <h3>Add Note</h3>
-        <p>${selectedText}</p>
         <textarea id="nook-note-input" placeholder="Add your note..." style = "width: 100%; height: 80px; margin: 10px 0;"></textarea>
         <div>
             <button id="nook-save-note">Save Note</button>
@@ -55,11 +78,14 @@ function showNoteCard(selectedText) {
     `;
     document.body.appendChild(card);
 
+    document.getElementById('nook-note-input').focus();
+
     //saving the note
     document.getElementById('nook-save-note').onclick = () => {
         const noteText = document.getElementById('nook-note-input').value;
         saveNote(selectedText, noteText);
         card.remove();
+        isNoteOpen = false;
     
     }
 
@@ -67,11 +93,12 @@ function showNoteCard(selectedText) {
     //something to cancel
     document.getElementById('nook-cancel-note').onclick = () => {
         card.remove();
+        isNoteOpen = false;
     };
 };
 
 function saveNote(selectedText, noteText) {
-    const websiteKey = new URL(window.location.href).hostname;
+    const websiteKey = new URL(window.location.href);
     const pageUrl = window.location.href;
     const pageTitle = document.title;
 
@@ -79,8 +106,8 @@ function saveNote(selectedText, noteText) {
         id: Date.now().toString(),
         text: selectedText,
         note: noteText,
-        color: 'yellow',
         timestamp: Date.now(),
+        color: highlightColor,
         url: pageUrl,
         title: pageTitle
     };
@@ -95,7 +122,7 @@ chrome.storage.local.get(['nookbooks'], (result) => {
     if(!nookbooks[websiteKey]){
         nookbooks[websiteKey] = {
             url: websiteKey,
-            name: websiteKey,
+            name: pageTitle,
             notes: []
         }
     }
