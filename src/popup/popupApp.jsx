@@ -59,9 +59,10 @@ export default function PopupApp(){
             <Highlight/>
         
 
-        <h5>Recent NookBooks:</h5>
-      <div className = 'recent-open-buttons'>
-       {recentNooks.length > 0 ? (
+       <h5>Recent NookBooks:</h5>
+
+      <div className="recent-row">
+        {recentNooks.length > 0 ? (
           <div className="recent-nooks">
             {recentNooks.map(([key, nook]) => (
               <button
@@ -69,21 +70,22 @@ export default function PopupApp(){
                 onClick={() => openNookbook(key)}
                 className="recent-nook-btn"
               >
-                <p className = 'recent-nook-title'>{nook.name}</p>
-                
+                <p className="recent-nook-title">{nook.name}</p>
               </button>
             ))}
           </div>
         ) : (
-         
           <h6>No recent NookBooks. Begin Highlighting!</h6>
-
-          
         )}
 
-      
-        <button onClick={openSidePanel}>See more</button>
-        </div>
+        <button
+          className="see-more"
+          onClick={openSidePanel}
+        >
+          More
+        </button>
+      </div>
+
     </div>
   )
 }

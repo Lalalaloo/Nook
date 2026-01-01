@@ -141,7 +141,7 @@ const deleteNookbook = (nookbookKey) => {
       </div>
 
       <div className = 'sidepanel-title'>
-        <h2>NookBooks</h2>
+        <h2 className = 'title'>NookBooks</h2>
         <hr className= 'hr-title-sidebar'/>
       </div>
 
@@ -163,7 +163,7 @@ const deleteNookbook = (nookbookKey) => {
               deleteNookbook(key);
             }}
           >
-            <Trash/>
+            <Trash size={10}/>
           </button>
               
             </div>
