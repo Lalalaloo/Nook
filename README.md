@@ -40,7 +40,6 @@ Highlight & Annotate
 
 
 **Future Improvements**
-I'm intentionally tracking these as future work rather than unfinished features:
 - Animations & micro-interactions
 - Search within NookBooks
 - Editable notes & highlights
